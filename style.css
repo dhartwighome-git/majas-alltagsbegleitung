@@ -401,6 +401,7 @@ Add background photos
 @media screen and (min-width: 767px) {
     #container-about-me .text-container { flex-direction: row; }
     #container-about-me img {
+        width: 100%;
         max-width: 20vw;
         max-height: 80vh;
     }
@@ -419,8 +420,6 @@ Add background photos
 
 #container-about-me p {
     flex: 1;
-    width: 100%;
-    align-content: center;
 }
 
 /* Reviews */
