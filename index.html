@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Majas Alltagsbegleitung – Zeit für Dich!</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,200,0,0&icon_names=favorite,mail,trending_flat" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,200,0,0&icon_names=favorite,folded_hands,group,mail,partner_heart,school,trending_flat,verified_user" />
 </head>
 <body>
     <script type="module">
@@ -291,7 +291,7 @@
 
     <header>
         <!--Logo & Links-->
-        <div class="logo"><img src="Logo13.png"></div>
+        <div class="logo"><img src="Logo13.png" alt="Biene mit Blumentopf"></div>
         <div class="flex-column full-width">
             <div class="sign-in">
                 <form id="login-form">
@@ -320,10 +320,10 @@
         <div class="flex-view" id="home">
             <div class="container" id="container-top">
 
-                <div class="text-container rounded-corners padding-20px opacity-65">
+                <div class="text-container rounded-corners padding-20px background-white-65">
                     <h1 class="padding-top-0">Ich begleite Dich<br>in Deinem Alltag</h2>
                     <p class="padding-top-0 padding-bottom-10px">Ich möchte Dich gerne im Alltag begleiten, unterstützen und mit Dir Zeit verbringen, denn das entspricht meinen christlichen Werten.</p>
-                    <a class="primary" href="#container-about-me">Mehr über mich<span class="material-symbols-outlined heading-2">trending_flat</span></a>
+                    <a class="primary opacity-100" href="#container-about-me">Mehr über mich<span class="material-symbols-outlined heading-2">trending_flat</span></a>
                 </div>
 
                 <div class="title flex-row gap-10px rounded-corners background-turqoise2 font-white">
@@ -338,31 +338,70 @@
 
             <div class="container no-gap" id="container-about-me">
 
-                <div class="title">
+                <div class="title flex-column no-padding no-margin">
+                    <p class="color-primary center-vertical">— <span class="material-symbols-outlined">favorite</span> —</p>
                     <h1>Über mich</h1>
+                    <h2 class="color-primary">Mit Zeit & Herz für Dich da.</h2>
                 </div>
                 <div class="flex-row mobile-column">
                     <div class="flex-column align-center min-width-30pc">
-                        <img src="Maja_Photo.JPG">
+                        <img src="Maja_Photo.JPG" alt="Freundliche Frau mit blauem Schaltuch und lockigem Haar">
                     </div>
 
                     <div class="text-container align-top">
-                        <!--Persönliche Daten: Name, Alter, Wohnort etc.-->
-                        <p>Mein Name ist Maja Melissa Mc Clellan (Mein Zweitname bedeutet im Altgr. Biene), ich bin zum Zeitpunkt der Unternehmensgründung 34 Jahre alt, unverheiratet und habe kein Kind. Ich bin zusammen mit meinen fünf Geschwistern und vielen Tieren auf einem Bauernhof im Kreis Heinsberg aufgewachsen. Inzwischen bin ich Tante von 7 Nichten und 15 Neffen.</p>
-                        <p>Geprägt durch die christlichen und pädagogischen Werte meiner Mutter, meiner Rolle als typisch mittleres, Harmonie liebendes Kind und pädagogischen Vorbildern wie u. A. meinen Grundschullehrerinnen, habe ich sehr früh Interesse an sozial orientierten Berufen entwickelt.
-                        </p>
+                        <div class="flex-width-1.2">
+                            <p class="color-primary bold">Mein Name ist<br>Maja Melissa Mc Clellan</p>
+                            <p>Mein Zweitname bedeutet im Altgr. <em>Biene</em>. Wir sehen sie als soziale und fleißige Tiere an - und genau das habe ich mir zur Aufgabe gemacht. Ich begleite Menschen in ihrem Alltag und verbringe Zeit mit ihnen, die ihnen guttut.</p>
+                            <p>Verlässlichkeit, Empathie und ein offenes Ohr sind für mich selbstverständlich. Ich bin davon überzeugt, dass jeder Mensch wertvoll ist und dass auch kleine Momente der Liebe und Wertschätzung Großes bewirken können.</p>
+                        </div>
+                        <div class="flex-width-1">
+                            <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1 center-horizontal">folded_hands</span><br>
+                            <p class="color-primary bold">Gott gibt uns Kraft, ermutigt und tröstet uns - das ist ein zentraler Ansatz meiner Arbeit.</p>
+                            <p>Mit dieser Unterstützung, die gewöhnliche Pflegedienste nicht bieten, möchte ich Dich ermutigen, praktische Hilfe leisten und Freude in Deinen Alltag bringen. Ich möchte damit eine Alternative zum oft kapitalistischen und leistungsorientierten Pflegesystem setzen und für Dich ein Anker sein.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="js-collapsible-group align-flex-start grid mobile-column">
-                    <button class="js-toggle-btn mobile-center-horizontal">
-                        <span class="btn-text heading-3">Qualifizierte Alltagsbegleiterin & Betreuungskraft (§§43b und 53b SGB XI)</span>
-                        <span class="js-arrow right">▼</span>
-                    </button>
+                <div class="grid-4-cols mobile-column">
+                    <div class="js-collapsible-group align-flex-start flex-column">
+                        <button class="js-toggle-btn mobile-center-horizontal">
+                            <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">school</span><br>
+                            <span class="btn-text heading-3">Qualifizierte Alltagsbegleiterin & Betreuungskraft (§§43b und 53b SGB XI)</span>
+                            <span class="js-arrow">▼</span>
+                        </button>
 
-                    <div class="js-collapsible collapsed background-light-pink">
-                        <p>Ich bin ausgebildete Kauffrau für Büromanagement mit langjähriger Berufserfahrung und habe im November 2023 eine Basisqualifikation als Helferin gemäß §45 a, b u. c SGB XI absolviert und seither als Alltagshelferin gearbeitet. Im April 2026 habe ich auch die Qualifikation als Alltagsbegleiterin/Betreuungskraft nach §§43b und 53b SGB XI erworben, sowie eine Erste-Hilfe-Ausbildung für betriebliche Ersthelfende abgeschlossen. Außerdem helfe ich seit Mai 2021 ehrenamtlich als Kinderbetreuerin in einer lokalen Gemeinde aus.</p>
+                        <div class="js-collapsible collapsed">
+                            <p>Ich bin ausgebildete Kauffrau für Büromanagement mit langjähriger Berufserfahrung und habe im November 2023 eine Basisqualifikation als Helferin gemäß §45 a, b u. c SGB XI absolviert und seither als Alltagshelferin gearbeitet. Im April 2026 habe ich auch die Qualifikation als Alltagsbegleiterin/Betreuungskraft nach §§43b und 53b SGB XI erworben, sowie eine Erste-Hilfe-Ausbildung für betriebliche Ersthelfende abgeschlossen. Außerdem helfe ich seit Mai 2021 ehrenamtlich als Kinderbetreuerin in einer lokalen Gemeinde aus.</p>
+                        </div>
+                    </div>
+                    <div class="js-collapsible-group align-flex-start flex-column">
+                        <button class="js-toggle-btn mobile-center-horizontal">
+                            <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">verified_user</span><br>
+                            <span class="btn-text heading-3">Zertifiziert und regelmäßig weitergebildet</span>
+                            <span class="js-arrow">▼</span>
+                        </button>
+
+                        <div class="js-collapsible collapsed">
+                            <p>Das Absolvieren von Fort- und Weiterbildungen, mindestens 1x jährlich, sowie von Erste-Hilfe-Kursen ist für mich selbstverständlich und wird weiter intensiviert.</p>
+                        </div>
+                    </div>
+                    <div class="flex-column align-center">
+                        <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">group</span>
+                        <span class="heading-3">Erfahrung in der Begleitung und Unterstützung im Alltag</span>
+                    </div>
+                    <div class="js-collapsible-group align-flex-start flex-column">
+                        <button class="js-toggle-btn mobile-center-horizontal">
+                            <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">partner_heart</span><br>
+                            <span class="btn-text heading-3">Liebe und Wertschätzung liegen in meiner Familie</span>
+                            <span class="js-arrow">▼</span>
+                        </button>
+
+                        <div class="js-collapsible collapsed">
+                            <p>Ich bin zusammen mit meinen fünf Geschwistern auf einem Bauernhof im Kreis Heinsberg aufgewachsen. Inzwischen bin ich Tante von 7 Nichten und 15 Neffen.</p>
+                            <p>Geprägt durch die christlichen und pädagogischen Werte meiner Mutter, meiner Rolle als typisch mittleres, Harmonie liebendes Kind und pädagogischen Vorbildern wie u. A. meinen Grundschullehrerinnen, habe ich sehr früh Interesse an sozial orientierten Berufen entwickelt.</p>
+                        </div>
                     </div>
                 </div>
+                
             </div>
 
             <div class="container scroll-target" id="container-services">
@@ -374,7 +413,7 @@
                 <!--To do: Pfeil-Buttons und Hintergrundbilder hinzufügen-->
                 <div class="container-service box-shadow" id="service1">
                     <div class="text-container">
-                        <img src="Icons/partner_heart.png">
+                        <img src="Icons/partner_heart.png" alt="Herz-Icon">
                         <h2>Gespräche</h2>
                         <p>Du hast etwas auf dem Herzen? Ich bin Dein Ansprechpartner und habe immer ein offenes Ohr für Dich.</p>
                     </div>
@@ -382,7 +421,7 @@
 
                 <div class="container-service box-shadow" id="service2">
                     <div class="text-container">
-                        <img src="Icons/car_shuttle.png">
+                        <img src="Icons/car_shuttle.png" alt="Fahrzeug-Icon">
                         <h2>Fahrdienst</h2>
                         <p>Du bist nicht mehr so gut zu Fuß oder das Taxi ist zu teuer? Das ist kein Problem. Ich begleite Dich zu Deinen Terminen und helfe Dir mit Deinem Einkauf.</p>
                     </div>
@@ -390,7 +429,7 @@
                 
                 <div class="container-service box-shadow" id="service3">
                     <div class="text-container">
-                        <img src="Icons/forest.png">
+                        <img src="Icons/forest.png" alt="Wald-Icon">
                         <h2>Ausflüge</h2>
                         <p>Du möchtest an die frische Luft oder warst schon länger nicht mehr im Tierpark? Gemeinsam können wir etwas unternehmen.</p>
                     </div>
@@ -398,7 +437,7 @@
 
                 <div class="container-service box-shadow" id="service4">
                     <div class="text-container">
-                        <img src="Icons/cleaning_bottle.png">
+                        <img src="Icons/cleaning_bottle.png" alt="Reinigungsmittel-Icon">
                         <h2>Haushalt</h2>
                         <p>Das Geschirr stapelt sich oder Du möchtest gerne etwas essen? Ich erledige grundlegende Arbeiten wie eine fleißige 🐝.</p>
                     </div>
@@ -406,7 +445,7 @@
 
                 <div class="container-service box-shadow" id="service5">
                     <div class="text-container">
-                        <img src="Icons/high_chair.png">
+                        <img src="Icons/high_chair.png" alt="Babystuhl-Icon">
                         <h2>Kinderbetreuung</h2>
                         <p>Es steht eine Operation bevor oder du hast Nachwuchs bekommen? Gerne bin ich in dieser Zeit für Dich da, wenn eine entsprechende Verordnung des Hausarztes vorliegt. (§ 38 SBG V)</p>
                     </div>
