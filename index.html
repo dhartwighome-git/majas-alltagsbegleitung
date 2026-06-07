@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Majas Alltagsbegleitung – Zeit für Dich!</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,200,0,0&icon_names=favorite,folded_hands,group,mail,partner_heart,school,trending_flat,verified_user" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=balance,book_2,build,calculate,calendar_month,casino,chef_hat,child_hat,church,cleaning,deceased,directions_car,diversity_3,event,event_repeat,favorite,folded_hands,forest,group,mail,music_note,my_location,neurology,partner_heart,photo_album,radio,recycling,restaurant,school,trending_flat,verified_user,volunteer_activism,work_history" />
 </head>
 <body>
     <script type="module">
@@ -268,23 +268,48 @@
             datenschutzView.classList.remove("hidden");
         })
 
+        function closeAll() {
+            document.querySelectorAll(".js-collapsible:not(.permanent *)").forEach(el => {
+                el.classList.add("collapsed");
+            });
+
+            document.querySelectorAll(".js-arrow:not(.permanent *)").forEach(el => {
+                el.classList.remove("is-rotated");
+            });
+        }
+
         const allToggleButtons = document.querySelectorAll(".js-toggle-btn");
 
         console.log(allToggleButtons);
 
         allToggleButtons.forEach(button => {
             button.addEventListener("click", (event) => {
+                event.stopPropagation();
+
                 const currentGroup = event.currentTarget.closest(".js-collapsible-group");
                 const btnArrow = button.querySelector(".js-arrow");
                 const groupCollapsibles = currentGroup.querySelectorAll(".js-collapsible");
 
-                console.log(currentGroup, btnArrow, groupCollapsibles);
+                const isOpen = !groupCollapsibles[0].classList.contains("collapsed");
+                closeAll();
+
+                if (isOpen) {
+                    groupCollapsibles.forEach(item => {
+                        item.classList.add("collapsed");
+                    });
+                    btnArrow.classList.remove("is-rotated");
+                    return;
+                }
 
                 groupCollapsibles.forEach(item => {
-                    item.classList.toggle("collapsed");
+                    item.classList.remove("collapsed");
                 });
-                btnArrow.classList.toggle("is-rotated");
-            })
+                btnArrow.classList.add("is-rotated");
+            });
+        });
+
+        document.addEventListener("click", () => {
+            closeAll();
         })
 
     </script>
@@ -349,55 +374,112 @@
                     </div>
 
                     <div class="text-container align-top">
-                        <div class="flex-width-1.2">
+                        <div class="flex-width-1.2" id="about-me-introduction">
                             <p class="color-primary bold">Mein Name ist<br>Maja Melissa Mc Clellan</p>
                             <p>Mein Zweitname bedeutet im Altgr. <em>Biene</em>. Wir sehen sie als soziale und fleißige Tiere an - und genau das habe ich mir zur Aufgabe gemacht. Ich begleite Menschen in ihrem Alltag und verbringe Zeit mit ihnen, die ihnen guttut.</p>
                             <p>Verlässlichkeit, Empathie und ein offenes Ohr sind für mich selbstverständlich. Ich bin davon überzeugt, dass jeder Mensch wertvoll ist und dass auch kleine Momente der Liebe und Wertschätzung Großes bewirken können.</p>
                         </div>
-                        <div class="flex-width-1">
+                        <div class="flex-width-1" id="about-me-faith">
                             <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1 center-horizontal">folded_hands</span><br>
                             <p class="color-primary bold">Gott gibt uns Kraft, ermutigt und tröstet uns - das ist ein zentraler Ansatz meiner Arbeit.</p>
                             <p>Mit dieser Unterstützung, die gewöhnliche Pflegedienste nicht bieten, möchte ich Dich ermutigen, praktische Hilfe leisten und Freude in Deinen Alltag bringen. Ich möchte damit eine Alternative zum oft kapitalistischen und leistungsorientierten Pflegesystem setzen und für Dich ein Anker sein.</p>
                         </div>
                     </div>
                 </div>
-                <div class="grid-4-cols mobile-column">
-                    <div class="js-collapsible-group align-flex-start flex-column">
+                <div class="grid-4-cols mobile-column" id="about-me-collapsibles">
+                    <div class="js-collapsible-group align-flex-start flex-column mobile-center-horizontal">
                         <button class="js-toggle-btn mobile-center-horizontal">
                             <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">school</span><br>
-                            <span class="btn-text heading-3">Qualifizierte Alltagsbegleiterin & Betreuungskraft (§§43b und 53b SGB XI)</span>
-                            <span class="js-arrow">▼</span>
+                            <span class="btn-text heading-4 color-primary bold">Qualifizierte Alltagsbegleiterin & Betreuungskraft</span><br>
+                            <span class="btn-text heading-4">(§§43b und 53b SGB XI)</span>
+                            <span class="js-arrow color-primary bold">▼</span>
                         </button>
 
                         <div class="js-collapsible collapsed">
-                            <p>Ich bin ausgebildete Kauffrau für Büromanagement mit langjähriger Berufserfahrung und habe im November 2023 eine Basisqualifikation als Helferin gemäß §45 a, b u. c SGB XI absolviert und seither als Alltagshelferin gearbeitet. Im April 2026 habe ich auch die Qualifikation als Alltagsbegleiterin/Betreuungskraft nach §§43b und 53b SGB XI erworben, sowie eine Erste-Hilfe-Ausbildung für betriebliche Ersthelfende abgeschlossen. Außerdem helfe ich seit Mai 2021 ehrenamtlich als Kinderbetreuerin in einer lokalen Gemeinde aus.</p>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">work_history</span>
+                                <p>Ausgebildete Kauffrau für Büromanagement mit langjähriger Berufserfahrung</p>
+                            </div>
+                            
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">volunteer_activism</span>
+                                <p>Erfolgreiche Basisqualifikation als Helferin gemäß §45 a, b u. c SGB XI (November 2023)</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">school</span>
+                                <p>Qualifikation als Alltagsbegleiterin/Betreuungskraft nach §§43b und 53b SGB XI, Erste-Hilfe-Ausbildung für betriebliche Ersthelfende. (April 2026)</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="js-collapsible-group align-flex-start flex-column">
+                    <div class="js-collapsible-group align-flex-start flex-column mobile-center-horizontal">
                         <button class="js-toggle-btn mobile-center-horizontal">
                             <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">verified_user</span><br>
-                            <span class="btn-text heading-3">Zertifiziert und regelmäßig weitergebildet</span>
-                            <span class="js-arrow">▼</span>
+                            <span class="btn-text heading-4 color-primary bold">Zertifiziert und regelmäßig weitergebildet</span>
+                            <span class="js-arrow color-primary bold">▼</span>
                         </button>
 
                         <div class="js-collapsible collapsed">
-                            <p>Das Absolvieren von Fort- und Weiterbildungen, mindestens 1x jährlich, sowie von Erste-Hilfe-Kursen ist für mich selbstverständlich und wird weiter intensiviert.</p>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">event_repeat</span>
+                                <p>Mehrmals im Jahr nehme ich an Fort- und Weiterbildungen und Erste-Hilfe-Kursen teil.</p>
+                            </div>
+                            
                         </div>
                     </div>
-                    <div class="flex-column align-center">
-                        <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">group</span>
-                        <span class="heading-3">Erfahrung in der Begleitung und Unterstützung im Alltag</span>
-                    </div>
-                    <div class="js-collapsible-group align-flex-start flex-column">
+                    <div class="js-collapsible-group align-flex-start flex-column mobile-center-horizontal">
                         <button class="js-toggle-btn mobile-center-horizontal">
-                            <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">partner_heart</span><br>
-                            <span class="btn-text heading-3">Liebe und Wertschätzung liegen in meiner Familie</span>
-                            <span class="js-arrow">▼</span>
+                            <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">group</span><br>
+                            <span class="btn-text heading-4 color-primary bold">Erfahrung in der Begleitung und Unterstützung im Alltag</span>
+                            <span class="js-arrow color-primary bold">▼</span>
                         </button>
 
                         <div class="js-collapsible collapsed">
-                            <p>Ich bin zusammen mit meinen fünf Geschwistern auf einem Bauernhof im Kreis Heinsberg aufgewachsen. Inzwischen bin ich Tante von 7 Nichten und 15 Neffen.</p>
-                            <p>Geprägt durch die christlichen und pädagogischen Werte meiner Mutter, meiner Rolle als typisch mittleres, Harmonie liebendes Kind und pädagogischen Vorbildern wie u. A. meinen Grundschullehrerinnen, habe ich sehr früh Interesse an sozial orientierten Berufen entwickelt.</p>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">volunteer_activism</span>
+                                <p>Ich arbeite bereits seit November 2023 als Alltagshelferin.</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">volunteer_activism</span>
+                                <p>Seit Mai 2023 Pflegeperson</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">volunteer_activism</span>
+                                <p>Angestellte als Alltagshelferin & Hauswirtschafterin bei <q>Anker mit Herz</q> (September 2023 bis März 2025)</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">volunteer_activism</span>
+                                <p>Ehrenamtliche Nachbarschaftshilfe für mehrere Kunden (Seit März 2025)</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">volunteer_activism</span>
+                                <p>Angestellte als Alltagshelferin & Hauswirtschafterin bei <q>Alltagshilfe Randerath</q> (September 2023 bis November 2025)</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">volunteer_activism</span>
+                                <p>Angestellte Alltagshelferin & Hauswirtschafterin im Privathaushalt (November 2025 bis Januar 2026)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="js-collapsible-group align-flex-start flex-column mobile-center-horizontal">
+                        <button class="js-toggle-btn mobile-center-horizontal">
+                            <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">partner_heart</span><br>
+                            <span class="btn-text heading-4 color-primary bold">Gelebte Werte</span>
+                            <span class="js-arrow color-primary bold">▼</span>
+                        </button>
+
+                        <div class="js-collapsible collapsed">
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">folded_hands</span>
+                                <p>Meine fünf Geschwister und ich wurden stark durch die christlichen und pädagogischen Werte meiner Mutter geprägt. Ich habe sehr früh Interesse an sozial orientierten Berufen entwickelt.</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">child_hat</span>
+                                <p>Wir haben eine große Familie. Inzwischen bin ich bereits Tante von 7 Nichten und 15 Neffen.</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">event_repeat</span>
+                                <p>Ich betreue regelmäßig die Kinder meiner Geschwister und unserer lokalen Kirchengemeinde (seit Mai 2021).</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -405,52 +487,210 @@
             </div>
 
             <div class="container scroll-target" id="container-services">
-
-                <div class="title">
-                    <h1>Meine Dienstleistungen</h1>
+                <div class="title flex-column no-padding no-margin">
+                    <p class="color-primary center-vertical">— <span class="material-symbols-outlined">favorite</span> —</p>
+                    <h1>Dienstleistungen</h1>
+                    <h2 class="color-primary">Für mehr Lebensqualität.</h2>
                 </div>
 
-                <!--To do: Pfeil-Buttons und Hintergrundbilder hinzufügen-->
-                <div class="container-service box-shadow" id="service1">
-                    <div class="text-container">
-                        <img src="Icons/partner_heart.png" alt="Herz-Icon">
-                        <h2>Gespräche</h2>
-                        <p>Du hast etwas auf dem Herzen? Ich bin Dein Ansprechpartner und habe immer ein offenes Ohr für Dich.</p>
+                <div class="service-category flex-column full-width no-padding background-secondary-light">        <!--One of three categories in 1 column-->
+                    <h2>Ambulante Einzelbetreuung</h2>
+                    <div class="services grid-2-cols mobile-column elements-background-white">             <!--The collection of services in multiple rows (wrapped)-->
+                        <div class="flex-row mobile-column width-50pc">   <!--One of many services in 1 row (details, img)-->
+                            <div class="flex-column">       <!--The service details in 1 column-->
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1 align-flex-start">music_note</span>
+                                <h3 class="color-primary bold">Gespräche & Musik</h2>
+                                <p>Du hast etwas auf dem Herzen? Ich bin Dein Ansprechpartner und habe ein offenes Ohr für Dich.</p>
+                                <p>Du hast Freude an Musik und Gesang? Gerne singe ich mit Dir Deine Lieblingslieder.</p>
+                            </div>
+                            <img src="Images/coffee.jpg" alt="Ältere Person trinkt Kaffee">
+                        </div>
+
+                        <div class="flex-row mobile-column width-50pc">   <!--One of many services in 1 row (details, img)-->
+                            <div class="flex-column">       <!--The service details in 1 column-->
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1 align-flex-start">chef_hat</span>
+                                <h3 class="color-primary bold">Kochen & Backen</h2>
+                                <p>Wie bei Mutter! Gemeinsam können wir Deine Lieblingsrezepte aussuchen und zubereiten. Wenn du möchtest, können wir die Zutaten vorher gemeinsam einkaufen.</p>
+                            </div>
+                            <img src="Images/dough.jpg" alt="Roher Teig und verstreutes Mehl">
+                        </div>
+
+                        <div class="flex-row mobile-column width-50pc">   <!--One of many services in 1 row (details, img)-->
+                            <div class="flex-column">       <!--The service details in 1 column-->
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1 align-flex-start">mail</span>
+                                <h3 class="color-primary bold">Büroarbeiten</h2>
+                                <p>Nie wieder den Überblick verlieren! Ich unterstütze Dich bei bürokratischen Angelegenheiten, z.B. Anträgen, allgemeinen Postangelegenheiten, Bezahlen von Rechnungen und vielem mehr.</p>
+                            </div>
+                            <img src="Images/office-folders.jpg" alt="Ein Dutzend schwarze Ordner, ordentlich in den Büroschrank eingeräumt">
+                        </div>
+
+                        <div class="js-collapsible-group permanent align-flex-start flex-column mobile-center-horizontal">
+                        <button class="js-toggle-btn mobile-center-horizontal">
+                            <span class="btn-text heading-3 color-primary bold">Weitere Angebote</span>
+                            <span class="js-arrow color-primary bold">▼</span>
+                        </button>
+
+                        <div class="js-collapsible collapsed">
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">casino</span>
+                                <p>Gesellschaftsspiele</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">book_2</span>
+                                <p>Bücher oder Zeitung lesen</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">radio</span>
+                                <p>Medien anhören oder anschauen</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">photo_album</span>
+                                <p>Biografiearbeit (Betrachten und ggf. Anfertigen von Erinnerungsalben oder -ordnern)</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">group</span>
+                                <p>Soziale Kontakte pflegen (Hilfestellung beim Telefonieren oder allgemeinen Terminorganisationen)</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">volunteer_activism</span>
+                                <p>Hilfe zur Selbsthilfe (Selbständigkeitstraining in allen Aktivitäten des täglichen Lebens)</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">build</span>
+                                <p>Lösungsfindung für Einschränkungen in den eigenen Räumlichkeiten (Hilfe bei der Umsetzung, z. B. bei der Beantragung von Hilfsmitteln oder Umbaumaßnahmen)</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">neurology</span>
+                                <p>Gedächtnistraining und Gedächtnisübungen</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">balance</span>
+                                <p>Übungen der Grob- und Feinmotorik</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">my_location</span>
+                                <p>Orientierungs- und Wahrnehmungsübungen</p>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
 
-                <div class="container-service box-shadow" id="service2">
-                    <div class="text-container">
-                        <img src="Icons/car_shuttle.png" alt="Fahrzeug-Icon">
-                        <h2>Fahrdienst</h2>
-                        <p>Du bist nicht mehr so gut zu Fuß oder das Taxi ist zu teuer? Das ist kein Problem. Ich begleite Dich zu Deinen Terminen und helfe Dir mit Deinem Einkauf.</p>
+                <div class="service-category flex-column full-width no-padding background-secondary-light">        <!--One of three categories in 1 column-->
+                    <h2>Betreuungs- und hauswirtschaftliche Unterstützungsleistungen</h2>
+                    <div class="services grid-2-cols mobile-column elements-background-white">             <!--The collection of services in multiple rows (wrapped)-->
+                        <div class="flex-row mobile-column width-50pc">   <!--One of many services in 1 row (details, img)-->
+                            <div class="flex-column">       <!--The service details in 1 column-->
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1 align-flex-start">cleaning</span>
+                                <h3 class="color-primary bold">Reinigungs- und Aufräumarbeiten</h2>
+                                <p>Das Geschirr stapelt sich, der Spiegel ist schmutzig und das Treppenhaus müsste auch mal wieder gewischt werden? Ich erledige grundlegende Arbeiten wie eine fleißige 🐝.</p>
+                            </div>
+                            <img src="Images/bathroom-towels.jpg" alt="Stapel weißer Handtücher">
+                        </div>
+
+                        <div class="flex-row mobile-column width-50pc">   <!--One of many services in 1 row (details, img)-->
+                            <div class="flex-column">       <!--The service details in 1 column-->
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1 align-flex-start">directions_car</span>
+                                <h3 class="color-primary bold">Fahrdienst</h2>
+                                <p>Ich begleite Dich zu Deinen (Arzt-) Terminen und helfe Dir gerne bei Deinem Einkauf (mit oder ohne PKW).</p>
+                            </div>
+                            <img src="Images/car-front.jpg" alt="Weißes Auto, Frontansicht">
+                        </div>
+
+                        <div class="flex-row mobile-column width-50pc">   <!--One of many services in 1 row (details, img)-->
+                            <div class="flex-column">       <!--The service details in 1 column-->
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1 align-flex-start">child_hat</span>
+                                <h3 class="color-primary bold">Kinderbetreuung & Familienhilfe</h2>
+                                <p>Es steht eine Operation bevor oder Du hast Nachwuchs bekommen? Gerne bin ich in dieser Zeit für Dich und Deine Kleinsten da, wenn eine entsprechende Verordnung des Hausarztes vorliegt. (§ 38 SGB V)</p>
+                            </div>
+                            <img src="Images/wooden-blocks.jpg" alt="Holzklötze">
+                        </div>
+
+                        <div class="js-collapsible-group permanent align-flex-start flex-column mobile-center-horizontal">
+                        <button class="js-toggle-btn mobile-center-horizontal">
+                            <span class="btn-text heading-3 color-primary bold">Weitere Angebote</span>
+                            <span class="js-arrow color-primary bold">▼</span>
+                        </button>
+
+                        <div class="js-collapsible collapsed">
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">diversity_3</span>
+                                <p>Soziale Kontakte pflegen</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">calendar_month</span>
+                                <p>Hilfe bei Strukturierung des Tages</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">calculate</span>
+                                <p>Hausaufgaben- und Freizeitbetreuung</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">chef_hat</span>
+                                <p>gemeinsames Kochen und Backen oder Raussuchen von Rezepten</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">recycling</span>
+                                <p>Müllentsorgung</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="container-service box-shadow" id="service3">
-                    <div class="text-container">
-                        <img src="Icons/forest.png" alt="Wald-Icon">
-                        <h2>Ausflüge</h2>
-                        <p>Du möchtest an die frische Luft oder warst schon länger nicht mehr im Tierpark? Gemeinsam können wir etwas unternehmen.</p>
                     </div>
                 </div>
 
-                <div class="container-service box-shadow" id="service4">
-                    <div class="text-container">
-                        <img src="Icons/cleaning_bottle.png" alt="Reinigungsmittel-Icon">
-                        <h2>Haushalt</h2>
-                        <p>Das Geschirr stapelt sich oder Du möchtest gerne etwas essen? Ich erledige grundlegende Arbeiten wie eine fleißige 🐝.</p>
-                    </div>
-                </div>
+                <div class="service-category flex-column full-width no-padding background-secondary-light">        <!--One of three categories in 1 column-->
+                    <h2>Individuelle Alltagsbegleitung</h2>
+                    <div class="services grid-2-cols mobile-column elements-background-white">             <!--The collection of services in multiple rows (wrapped)-->
+                        <div class="flex-row mobile-column width-50pc">   <!--One of many services in 1 row (details, img)-->
+                            <div class="flex-column">       <!--The service details in 1 column-->
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1 align-flex-start">forest</span>
+                                <h3 class="color-primary bold">Ausflüge & Unternehmungen</h2>
+                                <p>Wie gut tut doch die frische Luft! Gemeinsam können wir Ideen sammeln und Deine lang ersehnte Freizeitaktivität umsetzen.</p>
+                            </div>
+                            <img src="Images/park-bench.jpg" alt="Holzbank im Park">
+                        </div>
 
-                <div class="container-service box-shadow" id="service5">
-                    <div class="text-container">
-                        <img src="Icons/high_chair.png" alt="Babystuhl-Icon">
-                        <h2>Kinderbetreuung</h2>
-                        <p>Es steht eine Operation bevor oder du hast Nachwuchs bekommen? Gerne bin ich in dieser Zeit für Dich da, wenn eine entsprechende Verordnung des Hausarztes vorliegt. (§ 38 SBG V)</p>
+                        <div class="flex-row mobile-column width-50pc">   <!--One of many services in 1 row (details, img)-->
+                            <div class="flex-column">       <!--The service details in 1 column-->
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1 align-flex-start">church</span>
+                                <h3 class="color-primary bold">Freizeit & Kultur</h2>
+                                <p>Du hast schon länger nichts mehr unternommen? Gemeinsam können wir in die Kirche gehen oder ein Konzert, eine Kino- oder Theateraufführung oder ein Museum besuchen.</p>
+                            </div>
+                            <img src="Images/palace.jpg" alt="Marmor-Böden und Fensterbögen im Palast">
+                        </div>
+
+                        <div class="flex-row mobile-column width-50pc">   <!--One of many services in 1 row (details, img)-->
+                            <div class="flex-column">       <!--The service details in 1 column-->
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1 align-flex-start">event</span>
+                                <h3 class="color-primary bold">Alltagsorganisation</h2>
+                                <p>Ich begleite Dich zu Schul-, Arzt- und Friseurbesuchen und Boten-, Post- und Behördengängen</p>
+                            </div>
+                            <img src="Images/urban-city.jpg" alt="Belebte Innenstadt">
+                        </div>
+
+                        <div class="js-collapsible-group permanent align-flex-start flex-column mobile-center-horizontal">
+                        <button class="js-toggle-btn mobile-center-horizontal">
+                            <span class="btn-text heading-3 color-primary bold">Weitere Angebote</span>
+                            <span class="js-arrow color-primary bold">▼</span>
+                        </button>
+
+                        <div class="js-collapsible collapsed">
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">restaurant</span>
+                                <p>Café- oder Restaurantbesuche</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">partner_heart</span>
+                                <p>Besuche von Angehörigen oder Freunden</p>
+                            </div>
+                            <div class="flex-row">
+                                <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">deceased</span>
+                                <p>Zum Friedhof gehen</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
+            </div>
             </div>
 
             <div class="container" id="container-video">
