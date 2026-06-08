@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Majas Alltagsbegleitung – Zeit für Dich!</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=balance,book_2,build,calculate,calendar_month,casino,chef_hat,child_hat,church,cleaning,deceased,directions_car,diversity_3,event,event_repeat,favorite,folded_hands,forest,group,mail,music_note,my_location,neurology,partner_heart,photo_album,radio,recycling,restaurant,school,trending_flat,verified_user,volunteer_activism,work_history" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=balance,book_2,build,calculate,calendar_month,casino,chef_hat,child_hat,church,cleaning,deceased,directions_car,diversity_3,event,event_repeat,favorite,folded_hands,forest,fullscreen,fullscreen_exit,group,mail,music_note,my_location,neurology,partner_heart,pause,photo_album,play_arrow,radio,recycling,restaurant,school,trending_flat,verified_user,volume_down,volume_off,volume_up,volunteer_activism,work_history" />
+
+    <!-- Custom Player Stylesheet Connection -->
+    <link rel="stylesheet" href="player.css">
 </head>
 <body>
     <script type="module">
@@ -312,6 +315,21 @@
             closeAll();
         })
 
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Gather all your flex items
+            const items = document.querySelectorAll('.container');
+            
+            items.forEach(item => {
+                // 2. Read the custom data-order attribute value
+                const orderValue = item.getAttribute('data-order');
+                
+                // 3. If the value exists, apply it straight to the element's CSS order property
+                if (orderValue !== null) {
+                    item.style.order = orderValue;
+                }
+            });
+        });
+
     </script>
 
     <header>
@@ -334,8 +352,8 @@
             <div class="links">
                 <a class="home-link" href="#container-services">Dienstleistungen</a>
                 <a class="home-link" href="#container-about-me">Über mich</a>
-                <a class="home-link" href="#container-video">Meine Arbeit</a>
-                <a class="home-link" href="#container-reviews">Kundenbewertungen</a>
+                <a class="home-link" href="#container-video">Erfahrungen</a>
+                <!--<a class="home-link" href="#container-reviews">Erfahrungen</a>-->
                 <a class="home-link" href="#container-contact">Kontakt</a>
             </div>
         </div>
@@ -343,7 +361,7 @@
 
     <main>
         <div class="flex-view" id="home">
-            <div class="container" id="container-top">
+            <div class="container" id="container-top" data-order="1">
 
                 <div class="text-container rounded-corners padding-20px background-white-65">
                     <h1 class="padding-top-0">Ich begleite Dich<br>in Deinem Alltag</h2>
@@ -361,7 +379,7 @@
 
             </div>
 
-            <div class="container no-gap" id="container-about-me">
+            <div class="container no-gap" id="container-about-me" data-order="3">
 
                 <div class="title flex-column no-padding no-margin">
                     <p class="color-primary center-vertical">— <span class="material-symbols-outlined">favorite</span> —</p>
@@ -486,7 +504,7 @@
                 
             </div>
 
-            <div class="container scroll-target" id="container-services">
+            <div class="container scroll-target" id="container-services" data-order="2">
                 <div class="title flex-column no-padding no-margin">
                     <p class="color-primary center-vertical">— <span class="material-symbols-outlined">favorite</span> —</p>
                     <h1>Dienstleistungen</h1>
@@ -693,23 +711,54 @@
             </div>
             </div>
 
-            <div class="container" id="container-video">
-                <div class="title">
-                    <h1>Meine Arbeit</h1>
+            <div class="container" id="container-video" data-order="4">
+                <div class="title flex-column no-padding no-margin">
+                    <p class="color-primary center-vertical">— <span class="material-symbols-outlined">favorite</span> —</p>
+                    <h1>Bewertungen</h1>
+                    <h2 class="color-primary">Ein Einblick in meine Arbeit</h2>
                 </div>
 
                 <!--Video-->
                 <!--To Do: YouTube embedding or other host, user agreement button-->
-                <div class="video-container">
-                    <iframe
-                        src="https://drive.google.com/file/d/1o5gZ7diRGhTDW6c9QpJT6YB_pnYo3ovr/preview">
-                    </iframe>
+                <!-- Video Module Placement Structure -->
+                <div class="flex-column">
+                    <div class="custom-video-player" id="video-container">
+                        <video id="video-element" src="Videos/Heinrich Grafen 720p.mp4" playsinline></video>
+                        
+                        <!-- 1. Centered Big Play Button Circle -->
+                        <button id="center-play-btn" class="material-symbols-outlined">play_arrow</button>
+                        
+                        <div class="video-controls">
+                            <!-- Bottom left playback toggle -->
+                            <button id="play-btn" class="material-symbols-outlined">play_arrow</button>
+                            
+                            <!-- Timeline track -->
+                            <input type="range" id="seek-bar" value="0" min="0" max="100" step="0.1">
+                            
+                            <!-- 2. Volume control module -->
+                            <div class="volume-container">
+                                <button id="mute-btn" class="material-symbols-outlined">volume_up</button>
+                                <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="1">
+                            </div>
+                            
+                            <!-- 3. Full-screen controller -->
+                            <button id="fullscreen-btn" class="material-symbols-outlined">fullscreen</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="text-container">
-                    <p>Heinrich Grafen</p>
+                <div class="flex-column background-primary-light" id="video-client-information">
+                    <div class="flex-row fit-content gap-10px">
+                        <span class="heading-1 color-primary">„</span>
+                        <div class="flex-column">
+                            <h3 class="color-primary">Heinrich Grafen</h3>
+                            <p>Klient, begleitet seit März 2025</p>
+                        </div>
+                    </div>
+                    <q>Frau Mc Clellan kümmert sich um mich in der Zeit, seit sich mein Gesundheitszustand verschlechtert hat und fragt jeden Tag per WhatsApp oder Anruf, wie es mir geht.</q>
                 </div>
                 
-
+                <!-- 2. Custom Player Script Connection (Placed at the bottom of body) -->
+                <script src="player.js" defer></script>
             </div>
 
             <!-- <div class="container" id="container-reviews">
@@ -720,7 +769,7 @@
                 </div>
             </div> -->
 
-            <div class="container" id="container-contact">
+            <div class="container" id="container-contact" data-order="6">
                 <div class="title">
                     <h1>Melde Dich unverbindlich bei mir</h1>
                     <!--<p>für ein kostenloses Erstgespräch</p>-->
