@@ -41,9 +41,12 @@ html, body {
     margin: 0;
 }
 
-body {
+body, textarea {
     font-family: system-ui, -apple-system, BlinkMacSystemFont,
                "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
     background-color: rgba(173, 227, 243, 0.719); /* purple: rgb(75, 0, 75), blue: rgb(0, 0, 75), green: rgb(144, 201, 144);*/
     /*background-color: rgba(144, 201, 144, 0.25);*/
     display: flex;
@@ -826,7 +829,7 @@ Add background photos
         align-items: center;
     }
 
-    #contactForm {
+    form {
         height: 100%;
         width: 100%;
         display: flex;
@@ -834,19 +837,92 @@ Add background photos
         gap: 5px;
     }
 
+    input, textarea, fieldset {
+        border: 1px solid lightblue;
+        border-radius: 10px;
+    }
+
     input {
         width: 100%;
-        max-width: 400px;
+        max-width: 300px;
+        padding-inline: 0.5em;
+        height: 2em;
     }
     textarea {
         width: 100%;
         height: 150px;
+        padding: 0.5em;
     }
-    button {
+    fieldset {
+        width: 100%;
+        gap: 10px;
+    }
+    fieldset div {
+        padding: 5px 0;
+    }
+    fieldset[id="Pflegestufe"] div, fieldset[id="Pflegeperson"] div {
+        display: inline-flex;
+        align-items: center;
+    }
+    button[type="submit"] {
+        display: inline-flex;
         width: 150px;
         align-self: center;
+        border-radius: 25px;
+        background-color: var(--primary-color);
+        color: white;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        font-weight: bold;
+
+        transition: gap 0.4s ease-out;
     }
 
+    button:hover {
+        gap: 10px;
+    }
+    fieldset {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    fieldset input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    fieldset label {
+        cursor: pointer;
+    }
+    /* fieldset label[for="Sonstiges"], fieldset input#Sonstiges {
+        display: inline-block;
+    } */
+    fieldset input[type="checkbox"] + label {
+        border: 2px solid var(--primary-color);
+        border-radius: 15px;
+        padding: 6px 12px;
+        color: var(--primary-color);
+        background-color: var(--primary-light);
+        font-weight: bold;
+    }
+    fieldset input[type="checkbox"]:checked + label {
+        border: 2px solid var(--primary-color);
+        border-radius: 15px;
+        padding: 6px 12px;
+        color: white;
+        background-color: var(--primary-color);
+        font-weight: bold;
+    }
+    fieldset[id="Unterstützung"] div:last-of-type {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+}
+input[type="radio"]:checked {
+    accent-color: var(--primary-color);
 }
 
 /* Footer */

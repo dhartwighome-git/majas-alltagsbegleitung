@@ -5,332 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Majas Alltagsbegleitung – Zeit für Dich!</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=balance,book_2,build,calculate,calendar_month,casino,chef_hat,child_hat,church,cleaning,deceased,directions_car,diversity_3,event,event_repeat,favorite,folded_hands,forest,fullscreen,fullscreen_exit,group,mail,music_note,my_location,neurology,partner_heart,pause,photo_album,play_arrow,radio,recycling,restaurant,school,trending_flat,verified_user,volume_down,volume_off,volume_up,volunteer_activism,work_history" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=balance,book_2,build,calculate,calendar_month,casino,chef_hat,child_hat,church,cleaning,deceased,directions_car,diversity_3,event,event_repeat,favorite,folded_hands,forest,fullscreen,fullscreen_exit,group,mail,music_note,my_location,neurology,partner_heart,pause,photo_album,play_arrow,radio,recycling,restaurant,school,send,trending_flat,verified_user,volume_down,volume_off,volume_up,volunteer_activism,work_history" />
 
     <!-- Custom Player Stylesheet Connection -->
     <link rel="stylesheet" href="player.css">
 </head>
 <body>
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-        import { getFirestore, collection, doc, getDocs, addDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBv7_fz-X9GtsuTNu-yII4d72So6F24eDk",
-            authDomain: "ghn-care.firebaseapp.com",
-            projectId: "ghn-care",
-            storageBucket: "ghn-care.firebasestorage.app",
-            messagingSenderId: "1037138646761",
-            appId: "1:1037138646761:web:356baadc89cd4cb1250278"
-            };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        const form = document.getElementById("login-form");
-        const errorEl = document.getElementById("login-error");
-        const emailSymbol = document.getElementById("email-symbol");
-        const emailEl = document.getElementById("user-email");
-        const logoutBtn = document.getElementById("logout-btn");
-
-        // To do: Sign up
-
-        // Log in
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                form.reset();
-            } catch (err) {
-                errorEl.textContent = err.message;
-            }
-        });
-
-        // Log out
-        logoutBtn.addEventListener("click", async () => {
-            await signOut(auth);
-        });
-
-        // Protect page
-        onAuthStateChanged(auth, (user) => {
-            const isLoggedIn = !!user;
-
-            document.body.classList.toggle("logged-in", isLoggedIn);
-            document.body.classList.toggle("logged-out", !isLoggedIn);
-
-            if (isLoggedIn) {
-                emailEl.classList.remove("hidden");
-                emailSymbol.classList.remove("hidden");
-                emailEl.textContent = user.email;
-                logoutBtn.classList.remove("hidden");
-            } else {
-                // Remove log-out button
-                emailEl.classList.add("hidden");
-                emailSymbol.classList.add("hidden");
-                logoutBtn.classList.add("hidden");
-            }
-        });
-
-        // Optional globals
-        window.app = app;
-        window.auth = auth;
-        
-        // Header animation
-        const SCROLL_THRESHOLD = 50;
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > SCROLL_THRESHOLD) {
-            document.body.classList.add('scrolled');
-            } else {
-            document.body.classList.remove('scrolled');
-            }
-        });
-
-        // Fill reviews container
-        const reviewsContainer = document.getElementById("text-container-reviews");
-
-        // Fetch reviews
-        const reviews = getReviews();
-        async function getReviews() {
-            const snapshot = await getDocs(collection(db, "reviews"));
-
-            snapshot.forEach(doc => {
-                const data = doc.data();
-                const reviewBox = createReviewBox(data);
-                reviewsContainer.appendChild(reviewBox);
-            })
-        }
-
-        // Display reviews
-        function createReviewBox(data) {
-            // Fill reviews container
-            /* Data:
-                - gender*
-                - firstName*
-                - lastName*
-                - email*
-                - birthday*
-                - title*
-                - message*,
-                - starRating*
-            */
-            const box = document.createElement("div");
-            box.className = "text-container box-shadow";
-
-            // Top container
-            const topContainer = document.createElement("div");
-            topContainer.className = "top-container"
-
-            // Name
-            const person = document.createElement("h3");
-            person.className = "review-person";
-            person.textContent = `${data.firstName ?? ""} ${data.lastName ?? ""}`;
-
-            // Star Rating
-            const starRating = document.createElement("p");
-            starRating.className = "review-rating";
-            const rating = Math.floor(data.starRating || 5);
-            starRating.textContent = "★".repeat(rating) + "☆".repeat(5 - rating);
-
-            topContainer.append(person, starRating)
-
-            // Message container
-            const messageContainer = document.createElement("div");
-            messageContainer.className = "message-container"
-
-            // Title
-            const reviewTitle = document.createElement("h4");
-            reviewTitle.className = "review-title";
-            const reviewTitleText = data.reviewTitle || ""
-            reviewTitle.textContent = reviewTitleText;
-
-            // Message
-            const message = document.createElement("p");
-            message.className = "review-message";
-            const messageText = data.message || ""
-            message.textContent = messageText;
-
-            box.append(topContainer);
-            if (reviewTitleText !== "" || messageText !== "") {
-                if (reviewTitleText !== "") messageContainer.append(reviewTitle)
-                if (messageText !== "") messageContainer.append(message);
-                box.append(messageContainer);
-            }
-            return box;
-        }
-
-        // Helper function
-        function calculateAge(birthday) {
-            let birthDate;
-
-            if (!birthday) return null;
-
-            // Firestore Timestamp
-            if (birthday.toDate) {
-                birthDate = birthday.toDate();
-            }
-            // String or Date
-            else {
-                birthDate = new Date(birthday);
-            }
-
-            const today = new Date();
-            let age = today.getFullYear() - birthDate.getFullYear();
-
-            const hasHadBirthdayThisYear =
-                today.getMonth() > birthDate.getMonth() ||
-                (today.getMonth() === birthDate.getMonth() &&
-                today.getDate() >= birthDate.getDate());
-
-            if (!hasHadBirthdayThisYear) {
-                age--;
-            }
-
-            return age;
-        }
-
-        const contactform = document.getElementById('contactForm');
-
-        contactform.addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            const data = {
-                name: document.getElementById("contactFormName").value,
-                email: document.getElementById("contactFormEmail").value,
-                message: document.getElementById("contactFormMessage").value
-            };
-
-            const res = await fetch("/api/contact", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
-
-            const result = await res.json();
-            alert(result.message);
-            contactform.reset();
-        });
-
-        const header = document.querySelector("header");
-
-        // dynamically measure header height
-        function updateHeaderOffset() {
-            const height = header.offsetHeight;
-            document.documentElement.style.setProperty("--header-offset", height + "px")
-        }
-
-        header.addEventListener("transitionend", (e) => {
-            if(e.propertyName === "height" || e.propertyName === "min-height") {
-                updateHeaderOffset();
-            }
-        })
-
-        window.addEventListener("load", updateHeaderOffset);
-        window.addEventListener("resize", updateHeaderOffset);
-        window.addEventListener("scroll", updateHeaderOffset);
-
-
-        const homeLinks = document.querySelectorAll(".home-link");
-        const showImpressumBtn = document.getElementById("show-impressum");
-        const showDatenschutzBtn = document.getElementById("show-datenschutz");
-
-        const homeView = document.getElementById("home");
-        const impressumView = document.getElementById("impressum");
-        const datenschutzView = document.getElementById("datenschutz");
-    
-        homeLinks.forEach(link => {
-            link.addEventListener("click", () => {
-                homeView.classList.remove("hidden");
-                homeView.classList.add("flex-view")
-                impressumView.classList.add("hidden");
-                datenschutzView.classList.add("hidden");
-            })
-        })
-
-        showImpressumBtn.addEventListener("click", () => {
-            homeView.classList.add("hidden");
-            impressumView.classList.remove("hidden");
-            datenschutzView.classList.add("hidden");
-        })
-
-        showDatenschutzBtn.addEventListener("click", () => {
-            homeView.classList.add("hidden");
-            impressumView.classList.add("hidden");
-            datenschutzView.classList.remove("hidden");
-        })
-
-        function closeAll() {
-            document.querySelectorAll(".js-collapsible:not(.permanent *)").forEach(el => {
-                el.classList.add("collapsed");
-            });
-
-            document.querySelectorAll(".js-arrow:not(.permanent *)").forEach(el => {
-                el.classList.remove("is-rotated");
-            });
-        }
-
-        const allToggleButtons = document.querySelectorAll(".js-toggle-btn");
-
-        console.log(allToggleButtons);
-
-        allToggleButtons.forEach(button => {
-            button.addEventListener("click", (event) => {
-                event.stopPropagation();
-
-                const currentGroup = event.currentTarget.closest(".js-collapsible-group");
-                const btnArrow = button.querySelector(".js-arrow");
-                const groupCollapsibles = currentGroup.querySelectorAll(".js-collapsible");
-
-                const isOpen = !groupCollapsibles[0].classList.contains("collapsed");
-                closeAll();
-
-                if (isOpen) {
-                    groupCollapsibles.forEach(item => {
-                        item.classList.add("collapsed");
-                    });
-                    btnArrow.classList.remove("is-rotated");
-                    return;
-                }
-
-                groupCollapsibles.forEach(item => {
-                    item.classList.remove("collapsed");
-                });
-                btnArrow.classList.add("is-rotated");
-            });
-        });
-
-        document.addEventListener("click", () => {
-            closeAll();
-        })
-
-        document.addEventListener("DOMContentLoaded", () => {
-            // 1. Gather all your flex items
-            const items = document.querySelectorAll('.container');
-            
-            items.forEach(item => {
-                // 2. Read the custom data-order attribute value
-                const orderValue = item.getAttribute('data-order');
-                
-                // 3. If the value exists, apply it straight to the element's CSS order property
-                if (orderValue !== null) {
-                    item.style.order = orderValue;
-                }
-            });
-        });
-
-    </script>
+    <script src="app.js" type="module"></script>
 
     <header>
         <!--Logo & Links-->
@@ -454,11 +135,11 @@
                         <div class="js-collapsible collapsed">
                             <div class="flex-row">
                                 <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">volunteer_activism</span>
-                                <p>Ich arbeite bereits seit November 2023 als Alltagshelferin.</p>
+                                <p>Seit Mai 2023 Pflegeperson</p>
                             </div>
                             <div class="flex-row">
                                 <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">volunteer_activism</span>
-                                <p>Seit Mai 2023 Pflegeperson</p>
+                                <p>Angestellte als Alltagshelferin & Hauswirtschafterin bei <q>Alltagshilfe Randerath</q> (September 2023 bis November 2025)</p>
                             </div>
                             <div class="flex-row">
                                 <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">volunteer_activism</span>
@@ -466,11 +147,11 @@
                             </div>
                             <div class="flex-row">
                                 <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">volunteer_activism</span>
-                                <p>Ehrenamtliche Nachbarschaftshilfe für mehrere Kunden (Seit März 2025)</p>
+                                <p>Ich arbeite bereits seit November 2023 als Alltagshelferin.</p>
                             </div>
                             <div class="flex-row">
                                 <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">volunteer_activism</span>
-                                <p>Angestellte als Alltagshelferin & Hauswirtschafterin bei <q>Alltagshilfe Randerath</q> (September 2023 bis November 2025)</p>
+                                <p>Ehrenamtliche Nachbarschaftshilfe für mehrere Kunden (Seit März 2025)</p>
                             </div>
                             <div class="flex-row">
                                 <span class="material-symbols-outlined color-primary background-primary-light round icon-size-1">volunteer_activism</span>
@@ -754,7 +435,7 @@
                             <p>Klient, begleitet seit März 2025</p>
                         </div>
                     </div>
-                    <q>Frau Mc Clellan kümmert sich um mich in der Zeit, seit sich mein Gesundheitszustand verschlechtert hat und fragt jeden Tag per WhatsApp oder Anruf, wie es mir geht.</q>
+                    <q>Frau Mc Clellan kümmert sich um mich in der Zeit, seit sich mein Gesundheitszustand verschlechtert hat, und fragt jeden Tag per WhatsApp oder Anruf, wie es mir geht.</q>
                 </div>
                 
                 <!-- 2. Custom Player Script Connection (Placed at the bottom of body) -->
@@ -770,21 +451,131 @@
             </div> -->
 
             <div class="container" id="container-contact" data-order="6">
-                <div class="title">
+                <div class="title flex-column no-padding no-margin">
+                    <p class="color-primary center-vertical">— <span class="material-symbols-outlined">favorite</span> —</p>
                     <h1>Melde Dich unverbindlich bei mir</h1>
-                    <!--<p>für ein kostenloses Erstgespräch</p>-->
+                    <h2 class="color-primary">Ich freue mich, von Dir zu hören!</h2>
                 </div>
                 <div class="text-container">
-                    <form id="contactForm">
-                        <input type="text" id="contactFormName" placeholder="Name" required />
-                        <input type="email" id="contactFormEmail" placeholder="E-Mail" required />
-                        <textarea id="contactFormMessage" placeholder="Nachricht" required></textarea>
-                        <button type="submit">Senden</button>
+                    <form class="hidden" id="contactForm">
+                        <h3>Schreibe mir eine Nachricht.</h3>
+                        <!-- <label for="name">Name:</label> -->
+                        <input type="text" id="name" name="Name" placeholder="Dein Name *" required>
+
+                        <!-- <label for="email">E-Mail:</label> -->
+                        <input type="email" id="email" name="E-Mail" placeholder="Deine E-Mail *" required>
+
+                        <label for="message">Deine Nachricht *</label>
+                        <textarea id="message" name="Nachricht" placeholder="Wie kann ich Dir weiterhelfen?" maxlength="200" required></textarea>
+
+                        <button type="submit"><span class="material-symbols-outlined">send</span>Senden</button>
+                        <button type="button" class="form-toggle-btn">Ich möchte weitere Angaben machen.</button>
+                    </form>
+                    <form id="contactFormExtended">
+                        <h3>Ich möchte Dich gerne besser kennenlernen.</h3>
+                        <!-- <label for="name">Name:</label> -->
+                        <input type="text" id="name" name="Name" placeholder="Dein Name *" required>
+
+                        <!-- <label for="email">E-Mail:</label> -->
+                        <input type="email" id="email" name="E-Mail" placeholder="Deine E-Mail *" required>
+
+                        <input type="number" id="phone" name="Telefon" placeholder="Telefonnummer (optional)">
+
+                        <input type="number" id="plz" name="PLZ" placeholder="Deine PLZ *" minlength="5" maxlength="5" required>
+
+                        <fieldset class="required" id="Pflegestufe">
+                            <legend>Welche Pflegestufe hast Du? *</legend>
+                            <p class="error-msg" style="color: red; display: none; width: 100%;">Bitte gib eine Pflegestufe an.</p>
+                            <div>
+                                <input type="radio" id="none" name="Pflegestufe" value="keine">
+                                <label for="none">keine</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="1" name="Pflegestufe" value="1">
+                                <label for="1">1</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="2" name="Pflegestufe" value="2">
+                                <label for="2">2</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="3" name="Pflegestufe" value="3">
+                                <label for="3">3</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="4" name="Pflegestufe" value="4">
+                                <label for="4">4</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="5" name="Pflegestufe" value="5">
+                                <label for="5">5</label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="hidden required" id="Pflegeperson">
+                            <legend>Hast Du eine Pflegeperson? *</legend>
+                            <p class="error-msg" style="color: red; display: none; width: 100%;">Bitte gib an, ob Du eine Pflegeperson hast.</p>
+                            <div>
+                                <input type="radio" id="false" name="Pflegeperson" value="X">
+                                <label for="false">Nein.</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="true" name="Pflegeperson" value="✔">
+                                <label for="true">Ja.</label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="required" id="Unterstützung">
+                            <legend>Wobei benötigst Du Unterstützung? (Bitte Zutreffendes auswählen.) *</legend>
+                            <p class="error-msg" style="color: red; display: none; width: 100%;">Bitte wähle eine oder mehrere Dienstleistungen aus.</p>
+                            <div>
+                                <input type="checkbox" id="Alltagsbegleitung" name="Alltagsbegleitung" value="✔">
+                                <label for="Alltagsbegleitung">Alltagsbegleitung</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="Gesellschaft" name="Gesellschaft" value="✔">
+                                <label for="Gesellschaft">Gesellschaft</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="Fahrdienst" name="Fahrdienst" value="✔">
+                                <label for="Fahrdienst">Fahrdienst</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="Einkäufe" name="Einkäufe" value="✔">
+                                <label for="Einkäufe">Einkäufe</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="Ausflüge" name="Ausflüge" value="✔">
+                                <label for="Ausflüge">Ausflüge</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="Haushalt" name="Haushalt" value="✔">
+                                <label for="Haushalt">Haushalt</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="Kinderbetreuung" name="Kinderbetreuung" value="✔">
+                                <label for="Kinderbetreuung">Kinderbetreuung</label>
+                            </div>
+                            <br>
+                            <div>
+                                <input type="checkbox" id="custom" name="service" value="Sonstiges">
+                                <label for="custom">Sonstiges:</label>
+                                <input type="text" id="customText" name="Sonstiges" placeholder="(bitte ergänzen)" disabled>
+                            </div>
+                        </fieldset>
+
+                        <label for="Arbeitszeiten">Wochentage & Uhrzeit *</label>
+                        <input type="text" id="Arbeitszeiten" name="Arbeitszeiten" placeholder="z.B. Mo, Mi, Fr 16-18 Uhr" required>
+
+                        <label for="message">Deine Nachricht (optional)</label>
+                        <textarea id="message" name="Nachricht" placeholder="Wie kann ich Dir weiterhelfen?" maxlength="200"></textarea>
+
+                        <button type="submit"><span class="material-symbols-outlined">send</span>Senden</button>
+                        <button type="button" class="form-toggle-btn">Du bist Dir noch nicht sicher? Klicke hier, um mir eine Nachricht zu schreiben.</button>
                     </form>
                 </div>
 
-                <!--Contact form-->
-
+                <script src="contact.js"></script>
             </div>
         </div>
 
@@ -798,7 +589,7 @@
             <p>Maja Melissa Mc Clellan</p>
 
             <h2>Kontakt</h2>
-            <p>Telefon: 0178 1822094</p>
+            <p>Telefon: 0177 1822094</p>
             <p>E-Mail: maja@majas-alltagsbegleitung.de</p>
 
             <h2>Redaktionell verantwortlich</h2>
