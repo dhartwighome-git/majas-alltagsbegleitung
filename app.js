@@ -1,76 +1,76 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-import { getFirestore, collection, doc, getDocs, addDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+// import { getFirestore, collection, doc, getDocs, addDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+// import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+// // TODO: Add SDKs for Firebase products that you want to use
+// // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyBv7_fz-X9GtsuTNu-yII4d72So6F24eDk",
-    authDomain: "ghn-care.firebaseapp.com",
-    projectId: "ghn-care",
-    storageBucket: "ghn-care.firebasestorage.app",
-    messagingSenderId: "1037138646761",
-    appId: "1:1037138646761:web:356baadc89cd4cb1250278"
-    };
+// // Your web app's Firebase configuration
+// const firebaseConfig = {
+//     apiKey: "AIzaSyBv7_fz-X9GtsuTNu-yII4d72So6F24eDk",
+//     authDomain: "ghn-care.firebaseapp.com",
+//     projectId: "ghn-care",
+//     storageBucket: "ghn-care.firebasestorage.app",
+//     messagingSenderId: "1037138646761",
+//     appId: "1:1037138646761:web:356baadc89cd4cb1250278"
+//     };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+// const auth = getAuth(app);
+// const db = getFirestore(app);
 
-const form = document.getElementById("login-form");
-const errorEl = document.getElementById("login-error");
-const emailSymbol = document.getElementById("email-symbol");
-const emailEl = document.getElementById("user-email");
-const logoutBtn = document.getElementById("logout-btn");
+// const form = document.getElementById("login-form");
+// const errorEl = document.getElementById("login-error");
+// const emailSymbol = document.getElementById("email-symbol");
+// const emailEl = document.getElementById("user-email");
+// const logoutBtn = document.getElementById("logout-btn");
 
-// To do: Sign up
+// // To do: Sign up
 
-// Log in
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+// // Log in
+// form.addEventListener("submit", async (e) => {
+//     e.preventDefault();
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+//     const email = document.getElementById("email").value;
+//     const password = document.getElementById("password").value;
 
-    try {
-        await signInWithEmailAndPassword(auth, email, password);
-        form.reset();
-    } catch (err) {
-        errorEl.textContent = err.message;
-    }
-});
+//     try {
+//         await signInWithEmailAndPassword(auth, email, password);
+//         form.reset();
+//     } catch (err) {
+//         errorEl.textContent = err.message;
+//     }
+// });
 
-// Log out
-logoutBtn.addEventListener("click", async () => {
-    await signOut(auth);
-});
+// // Log out
+// logoutBtn.addEventListener("click", async () => {
+//     await signOut(auth);
+// });
 
-// Protect page
-onAuthStateChanged(auth, (user) => {
-    const isLoggedIn = !!user;
+// // Protect page
+// onAuthStateChanged(auth, (user) => {
+//     const isLoggedIn = !!user;
 
-    document.body.classList.toggle("logged-in", isLoggedIn);
-    document.body.classList.toggle("logged-out", !isLoggedIn);
+//     document.body.classList.toggle("logged-in", isLoggedIn);
+//     document.body.classList.toggle("logged-out", !isLoggedIn);
 
-    if (isLoggedIn) {
-        emailEl.classList.remove("hidden");
-        emailSymbol.classList.remove("hidden");
-        emailEl.textContent = user.email;
-        logoutBtn.classList.remove("hidden");
-    } else {
-        // Remove log-out button
-        emailEl.classList.add("hidden");
-        emailSymbol.classList.add("hidden");
-        logoutBtn.classList.add("hidden");
-    }
-});
+//     if (isLoggedIn) {
+//         emailEl.classList.remove("hidden");
+//         emailSymbol.classList.remove("hidden");
+//         emailEl.textContent = user.email;
+//         logoutBtn.classList.remove("hidden");
+//     } else {
+//         // Remove log-out button
+//         emailEl.classList.add("hidden");
+//         emailSymbol.classList.add("hidden");
+//         logoutBtn.classList.add("hidden");
+//     }
+// });
 
-// Optional globals
-window.app = app;
-window.auth = auth;
+// // Optional globals
+// window.app = app;
+// window.auth = auth;
 
 // Header animation
 const SCROLL_THRESHOLD = 50;

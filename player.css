@@ -66,8 +66,18 @@
     display: flex;
     align-items: center;
     padding: 12px 20px;
-    gap: 15px;
+    /* gap: 15px; */
     z-index: 3;
+
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.video-controls.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Prevents accidental clicks when invisible */
 }
 
 /* Standard Control Icons Styling (Play, Mute, Fullscreen) */
@@ -109,6 +119,7 @@
     align-items: center;
     gap: 8px;
     background-color: transparent;
+    padding: 0 5px;
 }
 
 #volume-slider {
@@ -135,4 +146,66 @@
     border-radius: 50%;
     background: var(--primary-color);
     cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    #center-play-btn {
+        width: 60px;
+        height: 60px;
+        top: 45%;
+    }
+
+    .video-controls {
+        flex-wrap: wrap;
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    #seek-bar {
+        width: 100%;
+        flex-basis: 100%;
+        order: -1; /* Pushes the timeline to its own full row on top */
+    }
+
+    #play-btn, #mute-btn, #fullscreen-btn {
+        font-size: 22px; /* Scales down oversized tap targets */
+    }
+
+    #play-btn {
+        margin-right: auto;
+    }
+
+    .volume-container {
+        gap: 4px;
+    }
+
+    #volume-slider {
+        width: 45px; /* Shrinks the slider to save horizontal view space */
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    /* Container holding both the video and the controls */
+    #video-container:hover .video-controls {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+}
+
+#video-container:fullscreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically centers the video inside black bars */
+    align-items: center;
+    /* background-color: #000; */
+
+    .video-controls {
+        position: relative;
+        width: 90vw;
+    }
+
+    #center-play-btn {
+        top: 47vh;
+    }
 }

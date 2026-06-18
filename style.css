@@ -67,6 +67,18 @@ h1, h2, h3, p {
     word-break: break-word;
 }
 
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.625rem; /* ~26px */
+    }
+    h2 {
+        font-size: 1.375rem; /* ~22px */
+    }
+    h3 {
+        font-size: 1.125rem; /* ~18px */
+    }
+}
+
 q::before {
   content: "„";
 }
@@ -528,7 +540,7 @@ main {
 
 /* Top Container */
 #container-top {
-    background-image: url(pexels-marcus-aurelius-6787787.jpg);
+    background-image: url(pexels-marcus-aurelius-6787787-mirrored.jpg);
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* left ↔ right */
@@ -843,18 +855,18 @@ Add background photos
     }
 
     input {
-        width: 100%;
+        /* width: 100%; */
         max-width: 300px;
         padding-inline: 0.5em;
         height: 2em;
     }
     textarea {
-        width: 100%;
+        /* width: 100%; */
         height: 150px;
         padding: 0.5em;
     }
     fieldset {
-        width: 100%;
+        /* width: 100%; */
         gap: 10px;
     }
     fieldset div {
@@ -905,6 +917,11 @@ Add background photos
         color: var(--primary-color);
         background-color: var(--primary-light);
         font-weight: bold;
+
+        transition: background-color 0.4s ease-out;
+    }
+    fieldset input[type="checkbox"] + label:hover {
+        background-color: rgba(0, 150, 135, 0.25);
     }
     fieldset input[type="checkbox"]:checked + label {
         border: 2px solid var(--primary-color);
@@ -913,6 +930,11 @@ Add background photos
         color: white;
         background-color: var(--primary-color);
         font-weight: bold;
+
+        transition: opacity 0.4s ease-in-out;
+    }
+    fieldset input[type="checkbox"]:checked + label:hover {
+        opacity: 0.6;
     }
     fieldset[id="Unterstützung"] div:last-of-type {
         display: flex;

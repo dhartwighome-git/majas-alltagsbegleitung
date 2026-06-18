@@ -139,3 +139,34 @@ video.addEventListener('ended', () => {
     container.classList.remove('is-playing');
     console.log("(ended) Set seekbar.value to:", 0);
 });
+
+const controls = document.querySelector('.video-controls');
+let hideTimeout;
+
+// Function to handle the auto-fade timer
+function resetControlTimer() {
+    // Always show controls on interaction
+    controls.classList.remove('hide'); 
+    
+    // Clear any existing countdown
+    clearTimeout(hideTimeout); 
+
+    // Only start fade countdown if video is actively playing
+    if (!video.paused) {
+        hideTimeout = setTimeout(() => {
+            controls.classList.add('hide');
+        }, 2500); // Fades out after 2.5 seconds of inactivity
+    }
+}
+
+// Event Listeners for Playback Status
+video.addEventListener('play', resetControlTimer);
+video.addEventListener('pause', () => {
+    clearTimeout(hideTimeout);
+    controls.classList.remove('hide'); // Permanently show while paused
+});
+
+// Event Listeners for User Interaction (Click/Tap)
+video.addEventListener('click', resetControlTimer);
+controls.addEventListener('mousemove', resetControlTimer);
+controls.addEventListener('touchstart', resetControlTimer);
