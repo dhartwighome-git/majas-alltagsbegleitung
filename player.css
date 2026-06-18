@@ -193,19 +193,21 @@
     }
 }
 
-#video-container:fullscreen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Vertically centers the video inside black bars */
-    align-items: center;
-    /* background-color: #000; */
+@media (max-width: 600px) {
+    #video-container:fullscreen {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Vertically centers the video inside black bars */
+        align-items: center;
+        /* background-color: #000; */
 
-    .video-controls {
-        position: relative;
-        width: 90vw;
-    }
+        .video-controls {
+            position: relative;
+            width: 90vw;
+        }
 
-    #center-play-btn {
-        top: 47vh;
+        #center-play-btn {
+            top: 47vh;
+        }
     }
 }
